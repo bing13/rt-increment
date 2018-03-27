@@ -88,6 +88,7 @@ EntireSheet=pd.read_csv(outfile, delimiter='\t', index_col=None, na_values=['NA'
 
 ## now need to DEDUPE, saving the most recently updated
 ##   but careful, have to select the *most recent*, not just dedupe. "take_last" might do
+## NOTE: take_last deprecated, use keep='last'
 ##  see http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop_duplicates.html?highlight=deduplicate
 ##  http://pandas.pydata.org/pandas-docs/stable/indexing.html?highlight=take_last
 ##    "last" defined in order of loading, unless the frame is reordered?
@@ -98,7 +99,7 @@ EntireSheet=pd.read_csv(outfile, delimiter='\t', index_col=None, na_values=['NA'
 ### Note: Drop_duplicates deals with fact that updated records will show up
 ### in the currentd search, and may correspond to records that were previously
 ### loaded (ex., when created, or previously modified)
-entireSheetQI = EntireSheet.drop_duplicates(subset='id',take_last=True).set_index('QueueName')
+entireSheetQI = EntireSheet.drop_duplicates(subset='id',keep='last').set_index('QueueName')
 
 #########################################################
 ## OUTPUT PICKLED FILE ##################################
